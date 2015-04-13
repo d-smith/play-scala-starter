@@ -19,7 +19,9 @@ object ComputerInfo {
 object Computers extends Controller {
   val list = Action {
       val comp = ComputerInfo("sparcstation 1", "sun")
-      Ok(Json.toJson(comp))
+      val comp2 = ComputerInfo("mac book", "apple")
+      val compList = List(comp, comp2)
+      Ok(Json.toJson(compList))
   }
   
   def details(name: String) = Action {
