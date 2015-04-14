@@ -1,1 +1,8 @@
 Simple play application bootstrapped from the activator.
+
+
+Post data:
+
+<pre>
+curl -v -X POST localhost:9000/computers --data '{"name":"lappy","manufacturer":"acme"}' -H 'content-type:application/json'
+</pre>
