@@ -24,6 +24,9 @@ object ComputerInfo {
 }
 
 object Computers extends Controller {
+    
+  val computerMap = scala.collection.mutable.HashMap.empty[String, ComputerInfo]    
+    
   val list = Action {
       val comp = ComputerInfo("sparcstation 1", "sun")
       val comp2 = ComputerInfo("mac book", "apple")
@@ -32,14 +35,18 @@ object Computers extends Controller {
   }
   
   def details(name: String) = Action {
-      val comp = ComputerInfo(name, "AcmeComputer")
-      Ok(Json.toJson(comp))
+      computerMap.get(name) match {
+          case Some(computerInfo) => Ok(Json.toJson(computerInfo))
+          case None => NotFound(s"No such computer: $name")
+      }
+      
   }
   
   def create = Action(parse.json) { implicit request => {
       request.body.validate[ComputerInfo] match {
           case JsSuccess(createComp,_) =>
             println(createComp)
+            computerMap += (createComp.name -> createComp)
             Ok(Json.toJson(createComp))
         case JsError(errors) =>
             println(errors)
