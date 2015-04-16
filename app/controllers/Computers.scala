@@ -28,10 +28,7 @@ object Computers extends Controller {
   val computerMap = scala.collection.mutable.HashMap.empty[String, ComputerInfo]    
     
   val list = Action {
-      val comp = ComputerInfo("sparcstation 1", "sun")
-      val comp2 = ComputerInfo("mac book", "apple")
-      val compList = List(comp, comp2)
-      Ok(Json.toJson(compList))
+      Ok(Json.toJson(computerMap.values.toList))
   }
   
   def details(name: String) = Action {
