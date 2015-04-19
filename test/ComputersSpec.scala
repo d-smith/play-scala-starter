@@ -14,8 +14,8 @@ class ComputersSpec extends Specification with JsonMatchers {
       val compInfo = ComputerInfo("a computer","b")
       val compJson = Json.toJson(compInfo)
 
-      val name = compJson.\("name").as[String]
-      name mustEqual "a computer"
+      compJson.\("name").as[String] mustEqual "a computer"
+      compJson.\("manufacturer").as[String] mustEqual("b")
 
     }
   }
