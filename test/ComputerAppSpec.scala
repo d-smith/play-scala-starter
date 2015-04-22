@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 import play.api.test.Helpers._
 import play.api.test.{FakeHeaders, FakeRequest, WithApplication, PlaySpecification}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsArray, Json}
 
 @RunWith(classOf[JUnitRunner])
 class ComputerAppSpec extends PlaySpecification {
@@ -35,13 +35,44 @@ class ComputerAppSpec extends PlaySpecification {
 
 
       route(FakeRequest(GET, "/computers/a-computer")) match {
+        case Some(response) => 
+            status(response) must equalTo(OK)
+            val jsonContent = (contentAsJson(response))
+            jsonContent.\("name").as[String] must equalTo("a-computer")
+            jsonContent.\("manufacturer").as[String] must equalTo("b")
+        case None => failure
+      }
+    }
+
+    "list the computer definitions that have been posted to it" in new WithApplication {
+      val compInfo = ComputerInfo("a-computer", "b")
+      val compJson = Json.toJson(compInfo)
+      val request = FakeRequest(
+        POST,
+        "/computers",
+        FakeHeaders(
+          Seq("Content-type" -> Seq("application/json"))
+        ),
+        compJson)
+
+      route(request) match {
         case Some(response) => status(response) must equalTo(OK)
         case None => failure
       }
 
-      //TODO - make sure the comp we got back has the values we expect
-    }
+      route(FakeRequest(GET, "/computers")) match {
+        case Some(response) =>
+          status(response) must equalTo(OK)
+          val jsonContent = (contentAsJson(response)).as[JsArray]
+          jsonContent.value.size must equalTo(1)
+          val comp = jsonContent.value(0)
+          comp.\("name").as[String] must equalTo("a-computer")
+          comp.\("manufacturer").as[String] must equalTo("b")
 
+        case None => failure
+      }
+
+    }
 
   }
 }
