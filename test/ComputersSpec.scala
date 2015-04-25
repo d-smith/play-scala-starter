@@ -1,4 +1,4 @@
-import models.ComputerInfo
+import models.Computer
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.mutable._
@@ -11,7 +11,7 @@ import play.api.libs.json.Json
 class ComputersSpec extends Specification with JsonMatchers {
   "ComputerInfo" should {
     "Serialize as JSON" in  {
-      val compInfo = ComputerInfo("a computer","b")
+      val compInfo = Computer("a computer","b")
       val compJson = Json.toJson(compInfo)
 
       compJson.\("name").as[String] mustEqual "a computer"

@@ -1,4 +1,4 @@
-import models.ComputerInfo
+import models.Computer
 import org.junit.runner.RunWith
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
@@ -18,7 +18,7 @@ class ComputerAppSpec extends PlaySpecification {
     }
 
     "accept a computer definition posted to it" in new WithApplication {
-      val compInfo = ComputerInfo("a-computer", "b")
+      val compInfo = Computer("a-computer", "b")
       val compJson = Json.toJson(compInfo)
       val request = FakeRequest(
         POST,
@@ -45,7 +45,7 @@ class ComputerAppSpec extends PlaySpecification {
     }
 
     "list the computer definitions that have been posted to it" in new WithApplication {
-      val compInfo = ComputerInfo("a-computer", "b")
+      val compInfo = Computer("a-computer", "b")
       val compJson = Json.toJson(compInfo)
       val request = FakeRequest(
         POST,
