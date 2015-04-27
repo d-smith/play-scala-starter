@@ -21,9 +21,13 @@ object InMemoryCatalog extends ComputerCatalog {
 
   override def get(name: String): Option[Computer] = computerMap.get(name)
 
-  override def create(name: String, manufacturer: String): Option[Computer] =
-      computerMap.put(name, Computer(name, manufacturer))
-  
+  override def create(name: String, manufacturer: String): Option[Computer] = {
+    val comp = Computer(name, manufacturer)
+    computerMap.put(name, comp)
+    Some(comp)
+  }
+
+
 }
 
 object Computer {
