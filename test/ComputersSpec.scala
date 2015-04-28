@@ -20,13 +20,17 @@ class ComputersSpec extends Specification with JsonMatchers {
     }
   }
 
+  //TODO - how to order tests
   "ComputerCatalog" should {
+
     "return None when retrieving a computer not in the list" in {
+      InMemoryCatalog.clearOutAllCatalogRecords()
       val fooComp = InMemoryCatalog.get("foo")
       fooComp must beEqualTo(None)
     }
 
     "return an empty list when not items are not in the catalog" in {
+      InMemoryCatalog.clearOutAllCatalogRecords()
       val computers = InMemoryCatalog.list
       computers.size must beEqualTo(0)
     }
@@ -41,16 +45,16 @@ class ComputersSpec extends Specification with JsonMatchers {
        case None => ko("None returned when Some expected")
      }
 
-   }
-
-/*   "return an option containing created object" in {
-     InMemoryCatalog.create("foo", "foo maker") match {
-       case Some(computer) =>
-         computer.name must beEqualTo("foo")
-         computer.manufacturer must beEqualTo("boo")
-       case None => failure
+     "return a list containing the created computers" in {
+       InMemoryCatalog.create("bar", "bar maker")
+       InMemoryCatalog.create("foo", "foo maker")
+       val computers = InMemoryCatalog.list
+       computers.size must beEqualTo(2)
+       computers.exists(_.name == "bar") must beEqualTo(true)
+       computers.exists(_.name == "foo") must beEqualTo(true)
      }
-   }*/
+
+   }
 
  }
 

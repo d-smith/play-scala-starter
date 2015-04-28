@@ -15,7 +15,7 @@ trait ComputerCatalog {
 }
 
 object InMemoryCatalog extends ComputerCatalog {
-  val computerMap = scala.collection.mutable.HashMap.empty[String, Computer]
+  var computerMap = scala.collection.mutable.HashMap.empty[String, Computer]
 
   override def list: Iterable[Computer] = computerMap.values.seq
 
@@ -25,6 +25,10 @@ object InMemoryCatalog extends ComputerCatalog {
     val comp = Computer(name, manufacturer)
     computerMap.put(name, comp)
     Some(comp)
+  }
+
+  def clearOutAllCatalogRecords(): Unit = {
+    computerMap = scala.collection.mutable.HashMap.empty[String, Computer]
   }
 
 
