@@ -1,4 +1,4 @@
-import models.Computer
+import models.{InMemoryCatalog, Computer}
 import org.junit.runner.RunWith
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
@@ -8,6 +8,7 @@ import play.api.libs.json.{JsArray, Json}
 
 @RunWith(classOf[JUnitRunner])
 class ComputerAppSpec extends PlaySpecification {
+  InMemoryCatalog.clearOutAllCatalogRecords()
 
   "Computer application" should {
     "return a 404 when asking for a computer that isn't known" in new WithApplication {
