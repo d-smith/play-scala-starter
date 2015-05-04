@@ -8,7 +8,6 @@ import play.api.libs.json.{JsArray, Json}
 
 @RunWith(classOf[JUnitRunner])
 class ComputerAppSpec extends PlaySpecification {
-  InMemoryCatalog.clearOutAllCatalogRecords()
 
   "Computer application" should {
     "return a 404 when asking for a computer that isn't known" in new WithApplication {

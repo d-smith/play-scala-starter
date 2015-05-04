@@ -24,20 +24,21 @@ class ComputersSpec extends Specification with JsonMatchers {
   "ComputerCatalog" should {
 
     "return None when retrieving a computer not in the list" in {
-      InMemoryCatalog.clearOutAllCatalogRecords()
-      val fooComp = InMemoryCatalog.get("foo")
+      val catalog = new InMemoryCatalog()
+      val fooComp = catalog.get("foo")
       fooComp must beEqualTo(None)
     }
 
     "return an empty list when not items are not in the catalog" in {
-      InMemoryCatalog.clearOutAllCatalogRecords()
-      val computers = InMemoryCatalog.list
+      val catalog = new InMemoryCatalog()
+      val computers = catalog.list
       computers.size must beEqualTo(0)
     }
 
 
    "return an option containing created object" in {
-     val computer = InMemoryCatalog.create("foo", "foo maker")
+     val catalog = new InMemoryCatalog()
+     val computer = catalog.create("foo", "foo maker")
      computer match {
        case Some(c) =>
          c.name must beEqualTo("foo")
@@ -46,9 +47,10 @@ class ComputersSpec extends Specification with JsonMatchers {
      }
 
      "return a list containing the created computers" in {
-       InMemoryCatalog.create("bar", "bar maker")
-       InMemoryCatalog.create("foo", "foo maker")
-       val computers = InMemoryCatalog.list
+       val catalog = new InMemoryCatalog()
+       catalog.create("bar", "bar maker")
+       catalog.create("foo", "foo maker")
+       val computers = catalog.list
        computers.size must beEqualTo(2)
        computers.exists(_.name == "bar") must beEqualTo(true)
        computers.exists(_.name == "foo") must beEqualTo(true)

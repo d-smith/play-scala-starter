@@ -9,7 +9,7 @@ import models.{InMemoryCatalog, ComputerCatalog, Computer}
 
 object Computers extends Controller {
 
-  val computerCatalog: ComputerCatalog = InMemoryCatalog
+  val computerCatalog: ComputerCatalog = new InMemoryCatalog
     
 
   val list = Action {

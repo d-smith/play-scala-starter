@@ -14,7 +14,7 @@ trait ComputerCatalog {
 
 }
 
-object InMemoryCatalog extends ComputerCatalog {
+class InMemoryCatalog extends ComputerCatalog {
   var computerMap = scala.collection.mutable.HashMap.empty[String, Computer]
 
   override def list: Iterable[Computer] = computerMap.values.seq
