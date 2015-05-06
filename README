@@ -7,3 +7,7 @@ Post data:
 <pre>
 curl -v -X POST localhost:9000/computers --data '{"name":"lappy","manufacturer":"acme"}' -H 'content-type:application/json'
 </pre>
+
+
+To pick up new dependencies via sbt when connected to the internet via a proxy, use the http_proxy and https_proxy
+environment variables.

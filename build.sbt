@@ -13,5 +13,6 @@ libraryDependencies ++= Seq(
   ws
 )
 
+libraryDependencies += "com.typesafe.slick" %% "slick" % "2.1.0"
 
 fork in run := true
